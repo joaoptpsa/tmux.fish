@@ -14,7 +14,6 @@ end
 alias tmux=_fish_tmux_plugin_run
 function _fish_tmux_create_aliases --on-variable fish_tmux_no_alias
     if test "$fish_tmux_no_alias" != true
-        alias tds=_fish_tmux_directory_session
         alias tksv="command tmux kill-server"
         alias tl="command tmux list-sessions"
 
@@ -55,7 +54,7 @@ function _fish_tmux_create_aliases --on-variable fish_tmux_no_alias
             end
         end
     else
-        functions -e tds tksv tl tmuxconf ta tad ts tkss
+        functions -e tksv tl tmuxconf ta tad ts tkss
     end
 end
 _fish_tmux_create_aliases

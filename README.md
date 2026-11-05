@@ -30,7 +30,6 @@ fisher install budimanjojo/tmux.fish
 | ---------- | -------------------------------|--------------------------------------------------------------- |
 | `ta`       | tmux attach -t                 | Attach new tmux session to already running named session       |
 | `tad`      | tmux attach -d -t              | Detach named tmux session                                      |
-| `tds`      | `_fish_tmux_directory_session` | Creates or attaches to a session for the current path          |
 | `tkss`     | tmux kill-session -t           | Terminate named running tmux session                           |
 | `tksv`     | tmux kill-server               | Terminate all running tmux sessions                            |
 | `tl`       | tmux list-sessions             | Displays a list of running tmux sessions                       |
