@@ -23,7 +23,7 @@ function _fish_tmux_create_aliases --on-variable fish_tmux_no_alias
             eval "
             function $alias_name --wraps='$full_cmd' --description 'alias $alias_name=$full_cmd'
                 # check if the first argument for this function is empty or starts with '-'
-                if test (count \$argv) -eq 0 || test (string sub -l 1 \$argv[1]) = '-'
+                if test (count \$argv) -eq 0 || test (string sub -l 1 -- \$argv[1]) = '-'
                     command tmux $tmux_cmd \$argv
                 else
                     $full_cmd \$argv
