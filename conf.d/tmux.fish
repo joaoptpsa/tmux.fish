@@ -14,24 +14,6 @@ end
 alias tmux=_fish_tmux_plugin_run
 function _fish_tmux_create_aliases --on-variable fish_tmux_no_alias
     if test "$fish_tmux_no_alias" != true
-        function _build_tmux_alias
-            set alias_name $argv[1]
-            set tmux_cmd $argv[2]
-            set ts_flag $argv[3]
-            set full_cmd "command tmux $tmux_cmd $ts_flag"
-
-            eval "
-            function $alias_name --wraps='$full_cmd' --description 'alias $alias_name=$full_cmd'
-                # check if the first argument for this function is empty or starts with '-'
-                if test (count \$argv) -eq 0 || test (string sub -l 1 \$argv[1]) = '-'
-                    command tmux $tmux_cmd \$argv
-                else
-                    $full_cmd \$argv
-                end
-            end
-            "
-        end
-
         alias tds=_fish_tmux_directory_session
         alias tksv="command tmux kill-server"
         alias tl="command tmux list-sessions"
@@ -44,12 +26,34 @@ function _fish_tmux_create_aliases --on-variable fish_tmux_no_alias
         # `-t` and `-s` flag for tmux commands require argument
         # so we remove the flag when called without argument and run normally when called with argument
         # see: https://github.com/ohmyzsh/ohmyzsh/issues/12230
-        _build_tmux_alias "ta" "attach" "-t"
-        _build_tmux_alias "tad" "attach -d" "-t"
-        _build_tmux_alias "ts" "new-session" "-s"
-        _build_tmux_alias "tkss" "kill-session" "-t"
-
-        functions -e _build_tmux_alias # remove this function after use
+        function ta --wraps='command tmux attach -t' --description 'alias ta=command tmux attach -t'
+            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+                command tmux attach $argv
+            else
+                command tmux attach -t $argv
+            end
+        end
+        function tad --wraps='command tmux attach -d -t' --description 'alias tad=command tmux attach -d -t'
+            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+                command tmux attach -d $argv
+            else
+                command tmux attach -d -t $argv
+            end
+        end
+        function ts --wraps='command tmux new-session -s' --description 'alias ts=command tmux new-session -s'
+            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+                command tmux new-session $argv
+            else
+                command tmux new-session -s $argv
+            end
+        end
+        function tkss --wraps='command tmux kill-session -t' --description 'alias tkss=command tmux kill-session -t'
+            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+                command tmux kill-session $argv
+            else
+                command tmux kill-session -t $argv
+            end
+        end
     else
         functions -e tds tksv tl tmuxconf ta tad ts tkss
     end
