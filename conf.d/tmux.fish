@@ -27,28 +27,28 @@ function _fish_tmux_create_aliases --on-variable fish_tmux_no_alias
         # so we remove the flag when called without argument and run normally when called with argument
         # see: https://github.com/ohmyzsh/ohmyzsh/issues/12230
         function ta --wraps='command tmux attach -t' --description 'alias ta=command tmux attach -t'
-            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+            if test (count $argv) -eq 0 || test (string sub -l 1 -- $argv[1]) = '-'
                 command tmux attach $argv
             else
                 command tmux attach -t $argv
             end
         end
         function tad --wraps='command tmux attach -d -t' --description 'alias tad=command tmux attach -d -t'
-            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+            if test (count $argv) -eq 0 || test (string sub -l 1 -- $argv[1]) = '-'
                 command tmux attach -d $argv
             else
                 command tmux attach -d -t $argv
             end
         end
         function ts --wraps='command tmux new-session -s' --description 'alias ts=command tmux new-session -s'
-            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+            if test (count $argv) -eq 0 || test (string sub -l 1 -- $argv[1]) = '-'
                 command tmux new-session $argv
             else
                 command tmux new-session -s $argv
             end
         end
         function tkss --wraps='command tmux kill-session -t' --description 'alias tkss=command tmux kill-session -t'
-            if test (count $argv) -eq 0 || test (string sub -l 1 $argv[1]) = '-'
+            if test (count $argv) -eq 0 || test (string sub -l 1 -- $argv[1]) = '-'
                 command tmux kill-session $argv
             else
                 command tmux kill-session -t $argv
